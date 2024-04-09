@@ -1,4 +1,4 @@
-package controlador;
+package controlador.tarea;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import modelo.Tarea;
 /**
  * Servlet implementation class Edit
  */
-@WebServlet("/Edit")
+@WebServlet("/EditTarea")
 public class Edit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -42,7 +42,7 @@ public class Edit extends HttpServlet {
 		request.setAttribute("tarea", tarea);
 
 		// abrir vista
-		request.getRequestDispatcher("edit_tarea.jsp").forward(request, response);
+		request.getRequestDispatcher("tarea/edit_tarea.jsp").forward(request, response);
 	}
 
 	/**

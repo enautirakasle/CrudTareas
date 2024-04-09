@@ -1,7 +1,6 @@
-package controlador;
+package controlador.tarea;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +11,16 @@ import modelo.ModeloTareas;
 import modelo.Tarea;
 
 /**
- * Servlet implementation class Show
+ * Servlet implementation class Destroy
  */
-@WebServlet("/Show")
-public class Show extends HttpServlet {
+@WebServlet("/DestroyTarea")
+public class Destroy extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Show() {
+    public Destroy() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +32,13 @@ public class Show extends HttpServlet {
 		//recibir la id
 		int id = Integer.parseInt(request.getParameter("id")); 
 		
-		//conseguir la tarea
+		//eliminar la tarea
 		ModeloTareas mt = new ModeloTareas();
-		Tarea tarea = mt.get(id);
+		mt.delete(id);
 		
-		//enviar tarea a la vista
-		request.setAttribute("tarea", tarea);
-		
-		//abrir vista
-		request.getRequestDispatcher("show_tarea.jsp").forward(request, response);
+		//abrir lo que quiera, en mi caso inicio
+		//como ya tengo un controlador que abra el inicio redirijo a ese controlador
+		response.sendRedirect("IndexTarea");
 	}
 
 	/**

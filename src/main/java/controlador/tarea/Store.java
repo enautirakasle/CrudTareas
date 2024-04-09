@@ -1,4 +1,4 @@
-package controlador;
+package controlador.tarea;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.ModeloTareas;
+import modelo.Tarea;
+
 /**
- * Servlet implementation class Create
+ * Servlet implementation class Store
  */
-@WebServlet("/Create")
-public class Create extends HttpServlet {
+@WebServlet("/StoreTarea")
+public class Store extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Create() {
+    public Store() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,15 +29,28 @@ public class Create extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("create_tarea.jsp").forward(request, response);
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		//recibir los tatos de la tarea
+		String titulo = request.getParameter("titulo");
+		String descripcion = request.getParameter("descripcion");
+		
+		//almacenar la tarea en BBDD
+		Tarea tarea = new Tarea();
+		tarea.setTitulo(titulo);
+		tarea.setDescripcion(descripcion);
+		
+		ModeloTareas mt = new ModeloTareas();
+		mt.insert(tarea);
+				
+		//abrir lo que quiera, en mi caso inicio
+		//como ya tengo un controlador que abra el inicio redirijo a ese controlador
+		response.sendRedirect("IndexTarea");
 	}
 
 }

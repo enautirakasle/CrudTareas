@@ -1,6 +1,8 @@
-package controlador;
+package controlador.tarea;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +13,16 @@ import modelo.ModeloTareas;
 import modelo.Tarea;
 
 /**
- * Servlet implementation class Store
+ * Servlet implementation class index
  */
-@WebServlet("/Store")
-public class Store extends HttpServlet {
+@WebServlet("/IndexTarea")
+public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Store() {
+    public Index() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,28 +31,24 @@ public class Store extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//acceder a la BBDD y traerme todos los usuarios
+		ModeloTareas mt = new ModeloTareas();
+		ArrayList<Tarea> tareas = mt.getTodos();
 		
+		
+		//set atribute de eese arraylist
+		request.setAttribute("tareas", tareas);
+		
+		//abir la vista principal
+		request.getRequestDispatcher("tarea/index.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//recibir los tatos de la tarea
-		String titulo = request.getParameter("titulo");
-		String descripcion = request.getParameter("descripcion");
-		
-		//almacenar la tarea en BBDD
-		Tarea tarea = new Tarea();
-		tarea.setTitulo(titulo);
-		tarea.setDescripcion(descripcion);
-		
-		ModeloTareas mt = new ModeloTareas();
-		mt.insert(tarea);
-				
-		//abrir lo que quiera, en mi caso inicio
-		//como ya tengo un controlador que abra el inicio redirijo a ese controlador
-		response.sendRedirect("Index");
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
