@@ -15,14 +15,16 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <a href="Index">Inicio</a>
+                    <a href="index">Inicio</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <p>Id: ${tarea.id}</p>
-                    <p>Nombre: ${tarea.titulo}</p>
-                    <p>Descripcion: ${tarea.descripcion}</p> 
+                    <form action="store" method="post">
+                    	<p>Titulo: <input type="text" name="titulo"/></p>
+                    	<p>Descripcion: <input type="text" name="descripcion"/></p>
+						<input type="submit" value="Guardar" name="Guardar">
+					</form>
                 </div>
             </div>
         </div>

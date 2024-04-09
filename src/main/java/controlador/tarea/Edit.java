@@ -1,4 +1,4 @@
-package controlador;
+package controlador.tarea;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import modelo.Tarea;
 /**
  * Servlet implementation class Edit
  */
-@WebServlet("/Edit")
+@WebServlet("/tarea/edit")
 public class Edit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -15,19 +15,14 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <a href="Index">Inicio</a>
+                    <a href="index">Inicio</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                
-                    <form action="Update" method="POST">
-                    	<input type="hidden" name="id" value="${tarea.id}"/>
-						Titulo: <input type="text" name="titulo" value="${tarea.titulo}"/>
-						Descripcion: <input type="text" name="descripcion" value="${tarea.descripcion}"/>
-						<input type="submit" value="Guardar" name="Guardar">
-					</form>
-					
+                    <p>Id: ${tarea.id}</p>
+                    <p>Nombre: ${tarea.titulo}</p>
+                    <p>Descripcion: ${tarea.descripcion}</p> 
                 </div>
             </div>
         </div>

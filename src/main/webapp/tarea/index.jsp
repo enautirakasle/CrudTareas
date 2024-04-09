@@ -15,7 +15,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <a href="Create">Crear</a>
+                    <a href="create">Crear</a>
                 </div>
             </div>
             <div class="row">
@@ -38,9 +38,9 @@
                             <td>${tarea.titulo}</td>
                             <td>${tarea.descripcion}</td>
                             <td>
-                            	<a href="Show?id=${tarea.id}">Ver</a>
-                            	<a href="Edit?id=${tarea.id}">Modificar</a>
-                            	<a href="Destroy?id=${tarea.id}">Eliminar</a>                            	
+                            	<a href="show?id=${tarea.id}">Ver</a>
+                            	<a href="edit?id=${tarea.id}">Modificar</a>
+                            	<a href="destroy?id=${tarea.id}">Eliminar</a>                            	
                             </td>
                           </tr>
                           </c:forEach>

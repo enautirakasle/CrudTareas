@@ -1,7 +1,6 @@
-package controlador;
+package controlador.tarea;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +11,16 @@ import modelo.ModeloTareas;
 import modelo.Tarea;
 
 /**
- * Servlet implementation class Show
+ * Servlet implementation class Update
  */
-@WebServlet("/Show")
-public class Show extends HttpServlet {
+@WebServlet("/tarea/update")
+public class Update extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Show() {
+    public Update() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,26 +29,31 @@ public class Show extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//recibir la id
-		int id = Integer.parseInt(request.getParameter("id")); 
-		
-		//conseguir la tarea
-		ModeloTareas mt = new ModeloTareas();
-		Tarea tarea = mt.get(id);
-		
-		//enviar tarea a la vista
-		request.setAttribute("tarea", tarea);
-		
-		//abrir vista
-		request.getRequestDispatcher("show_tarea.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		//recibir los tatos de la tarea
+		int id = Integer.parseInt(request.getParameter("id")); 
+		String titulo = request.getParameter("titulo");
+		String descripcion = request.getParameter("descripcion");
+		
+		//almacenar la tarea en BBDD
+		Tarea tarea = new Tarea();
+		tarea.setId(id);
+		tarea.setTitulo(titulo);
+		tarea.setDescripcion(descripcion);
+		
+		ModeloTareas mt = new ModeloTareas();
+		mt.update(tarea);
+				
+		//abrir lo que quiera, en mi caso inicio
+		//como ya tengo un controlador que abra el inicio redirijo a ese controlador
+		response.sendRedirect("index");
 	}
 
 }
