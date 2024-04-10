@@ -44,6 +44,7 @@ public class Update extends HttpServlet {
 		
 		//almacenar la tarea en BBDD
 		Tarea tarea = new Tarea();
+		tarea.setId(id);
 		tarea.setTitulo(titulo);
 		tarea.setDescripcion(descripcion);
 		
