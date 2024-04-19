@@ -21,10 +21,10 @@
 		    <div class="collapse navbar-collapse" id="navbarNav">
 		      <ul class="navbar-nav">
 		        <li class="nav-item">
-		          <a class="nav-link active" aria-current="page" href="IndexTarea">Tareas</a>
+		          <a class="nav-link" aria-current="page" href="IndexTarea">Tareas</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="IndexDificultad">Dificultades</a>
+		          <a class="nav-link active" href="IndexDificultad">Dificultades</a>
 		        </li>
 		      </ul>
 		    </div>
@@ -35,7 +35,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <a href="CreateTarea">Crear</a>
+                    <a href="CrearDificultad">Crear</a>
                 </div>
             </div>
             <div class="row">
@@ -45,22 +45,19 @@
                         <thead>
                           <tr>
                             <th scope="">id</th>
-                            <th scope="col">titulo</th>
-                            <th scope="col">descripcion</th>
-                            <th></th>
+                            <th scope="col">nombre</th>                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
                         
-                        <c:forEach items="${tareas}" var="tarea">
+                        <c:forEach items="${dificultades}" var="dificultad">
                           <tr>
-                            <td>${tarea.id}</td>
-                            <td>${tarea.titulo}</td>
-                            <td>${tarea.descripcion}</td>
+                            <td>${dificultad.id}</td>
+                            <td>${dificultad.nombre}</td>
                             <td>
-                            	<a href="ShowTarea?id=${tarea.id}">Ver</a>
-                            	<a href="EditTarea?id=${tarea.id}">Modificar</a>
-                            	<a href="DestroyTarea?id=${tarea.id}">Eliminar</a>                            	
+                            	<a href="ShowDificultad?id=${dificultad.id}">Ver</a>
+                            	<a href="EditDificultad?id=${dificultad.id}">Modificar</a>
+                            	<a href="DestroyDificultad?id=${dificultad.id}">Eliminar</a>                            	
                             </td>
                           </tr>
                           </c:forEach>
