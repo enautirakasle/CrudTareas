@@ -35,7 +35,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <a href="CrearDificultad">Crear</a>
+                    <a href="CreateDificultad">Crear</a>
                 </div>
             </div>
             <div class="row">
