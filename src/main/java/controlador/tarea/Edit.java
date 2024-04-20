@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.ModeloDificultades;
 import modelo.ModeloTareas;
 import modelo.Tarea;
 
@@ -31,6 +32,8 @@ public class Edit extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+ModeloDificultades md = new ModeloDificultades();
+		
 		// recibir la id
 		int id = Integer.parseInt(request.getParameter("id"));
 
@@ -40,6 +43,8 @@ public class Edit extends HttpServlet {
 
 		// enviar tarea a la vista
 		request.setAttribute("tarea", tarea);
+		request.setAttribute("dificultades", md.getTodos());
+
 
 		// abrir vista
 		request.getRequestDispatcher("tarea/edit_tarea.jsp").forward(request, response);
