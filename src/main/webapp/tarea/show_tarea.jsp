@@ -23,6 +23,7 @@
                     <p>Id: ${tarea.id}</p>
                     <p>Nombre: ${tarea.titulo}</p>
                     <p>Descripcion: ${tarea.descripcion}</p> 
+                    <p>Dificultad: ${tarea.dificultad.nombre}</p>
                 </div>
             </div>
         </div>
