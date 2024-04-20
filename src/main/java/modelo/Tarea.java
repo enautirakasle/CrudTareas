@@ -4,6 +4,7 @@ public class Tarea {
 	private int id;
 	private String titulo;
 	private String descripcion;
+	private Dificultad dificultad;
 	
 	public int getId() {
 		return id;
@@ -22,6 +23,12 @@ public class Tarea {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public Dificultad getDificultad() {
+		return dificultad;
+	}
+	public void setDificultad(Dificultad dificultad) {
+		this.dificultad = dificultad;
 	}
 	@Override
 	public String toString() {
