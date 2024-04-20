@@ -23,6 +23,14 @@
                     <form action="StoreTarea" method="post">
                     	<p>Titulo: <input type="text" name="titulo"/></p>
                     	<p>Descripcion: <input type="text" name="descripcion"/></p>
+                    	<p>Dificultad: 
+                    		<select name="dificultad">
+                    			<option value="0"> </option>
+                    			<c:forEach items="${dificultades}" var="dificultad">
+                    			<option value="${dificultad.id}">${dificultad.nombre}</option>
+                    			</c:forEach>
+                    		</select>
+                    	</p>
 						<input type="submit" value="Guardar" name="Guardar">
 					</form>
                 </div>
