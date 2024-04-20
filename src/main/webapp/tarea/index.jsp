@@ -47,6 +47,7 @@
                             <th scope="">id</th>
                             <th scope="col">titulo</th>
                             <th scope="col">descripcion</th>
+                            <th scope="col">dificultad</th>
                             <th></th>
                           </tr>
                         </thead>
@@ -57,6 +58,7 @@
                             <td>${tarea.id}</td>
                             <td>${tarea.titulo}</td>
                             <td>${tarea.descripcion}</td>
+                            <td>${tarea.dificultad.nombre}</td>
                             <td>
                             	<a href="ShowTarea?id=${tarea.id}">Ver</a>
                             	<a href="EditTarea?id=${tarea.id}">Modificar</a>
