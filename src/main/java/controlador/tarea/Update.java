@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.Dificultad;
 import modelo.ModeloTareas;
 import modelo.Tarea;
 
@@ -41,12 +42,17 @@ public class Update extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id")); 
 		String titulo = request.getParameter("titulo");
 		String descripcion = request.getParameter("descripcion");
+		int dificultad_id = Integer.parseInt(request.getParameter("dificultad"));
+
 		
 		//almacenar la tarea en BBDD
 		Tarea tarea = new Tarea();
 		tarea.setId(id);
 		tarea.setTitulo(titulo);
 		tarea.setDescripcion(descripcion);
+		Dificultad dificultad = new Dificultad();
+		dificultad.setId(dificultad_id);
+		tarea.setDificultad(dificultad);
 		
 		ModeloTareas mt = new ModeloTareas();
 		mt.update(tarea);

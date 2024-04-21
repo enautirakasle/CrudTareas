@@ -73,10 +73,11 @@ public class ModeloTareas extends Conector {
 	public int update(Tarea tarea) {
 		try {
 			PreparedStatement pst = this.conexion
-					.prepareStatement("UPDATE tareas SET titulo = ?, descripcion = ? WHERE id = ?");
+					.prepareStatement("UPDATE tareas SET titulo = ?, descripcion = ?, dificultad_id = ? WHERE id = ?");
 			pst.setString(1, tarea.getTitulo());
 			pst.setString(2, tarea.getDescripcion());
-			pst.setInt(3, tarea.getId());
+			pst.setInt(3, tarea.getDificultad().getId());
+			pst.setInt(4, tarea.getId());
 
 			return pst.executeUpdate();
 		} catch (SQLException e) {
@@ -88,9 +89,10 @@ public class ModeloTareas extends Conector {
 	public void insert(Tarea tarea) {
 		try {
 			PreparedStatement pst = this.conexion
-					.prepareStatement("INSERT INTO tareas (titulo, descripcion) VALUES (?, ?)");
+					.prepareStatement("INSERT INTO tareas (titulo, descripcion, dificultad_id) VALUES (?, ?, ?)");
 			pst.setString(1, tarea.getTitulo());
 			pst.setString(2, tarea.getDescripcion());
+			pst.setInt(3, tarea.getDificultad().getId());
 			pst.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
