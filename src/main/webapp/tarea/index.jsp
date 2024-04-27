@@ -14,7 +14,7 @@
       
        <nav class="navbar navbar-expand-lg bg-body-tertiary">
 		  <div class="container-fluid">
-		    <a class="navbar-brand" href="#">GestorTareas</a>
+		    <a class="navbar-brand" href="IndexTarea">GestorTareas</a>
 		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		      <span class="navbar-toggler-icon"></span>
 		    </button>
@@ -35,6 +35,12 @@
         <div class="container">
             <div class="row">
                 <div class="col">
+                <c:if test="${msg=='stored'}">
+	                <div class="alert alert-success alert-dismissible fade show" role="alert">
+					  <strong>Ok!</strong> Tarea creada correctamente.
+					  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+                </c:if>
                     <a href="CreateTarea">Crear</a>
                 </div>
             </div>

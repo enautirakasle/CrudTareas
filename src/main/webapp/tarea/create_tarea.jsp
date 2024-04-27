@@ -20,6 +20,14 @@
             </div>
             <div class="row">
                 <div class="col">
+
+                <c:if test="${msg=='nok'}">
+	                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+					  <strong>Error!</strong> Faltan campos requeridos.
+					  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+                </c:if>
+                
                     <form action="StoreTarea" method="post">
                     	<p>Titulo: <input type="text" name="titulo"/></p>
                     	<p>Descripcion: <input type="text" name="descripcion"/></p>

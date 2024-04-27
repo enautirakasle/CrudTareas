@@ -57,9 +57,9 @@ public class Store extends HttpServlet {
 					
 			//abrir lo que quiera, en mi caso inicio
 			//como ya tengo un controlador que abra el inicio redirijo a ese controlador
-			response.sendRedirect("IndexTarea");
+			response.sendRedirect("IndexTarea?msg=stored");
 		}else {
-			response.sendRedirect("CreateTarea");
+			response.sendRedirect("CreateTarea?msg=nok");
 		}
 		
 		

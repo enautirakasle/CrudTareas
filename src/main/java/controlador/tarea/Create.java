@@ -29,6 +29,8 @@ public class Create extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModeloDificultades md = new ModeloDificultades();
+
+		request.setAttribute("msg", request.getParameter("msg"));
 		
 		request.setAttribute("dificultades", md.getTodos());
 		request.getRequestDispatcher("tarea/create_tarea.jsp").forward(request, response);

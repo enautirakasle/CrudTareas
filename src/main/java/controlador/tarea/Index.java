@@ -31,6 +31,8 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("msg", request.getParameter("msg"));
+
 		//acceder a la BBDD y traerme todos los usuarios
 		ModeloTareas mt = new ModeloTareas();
 		ArrayList<Tarea> tareas = mt.getTodos();
