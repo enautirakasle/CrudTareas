@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.Dificultad;
 import modelo.ModeloTareas;
 import modelo.Tarea;
+import utils.FormValidador;
 
 /**
  * Servlet implementation class Store
@@ -50,12 +51,18 @@ public class Store extends HttpServlet {
 		dificultad.setId(dificultad_id);
 		tarea.setDificultad(dificultad);
 		
-		ModeloTareas mt = new ModeloTareas();
-		mt.insert(tarea);
-				
-		//abrir lo que quiera, en mi caso inicio
-		//como ya tengo un controlador que abra el inicio redirijo a ese controlador
-		response.sendRedirect("IndexTarea");
+		if(FormValidador.tareaValida(tarea)){
+			ModeloTareas mt = new ModeloTareas();
+			mt.insert(tarea);
+					
+			//abrir lo que quiera, en mi caso inicio
+			//como ya tengo un controlador que abra el inicio redirijo a ese controlador
+			response.sendRedirect("IndexTarea");
+		}else {
+			response.sendRedirect("CreateTarea");
+		}
+		
+		
 	}
 
 }
