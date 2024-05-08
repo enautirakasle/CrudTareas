@@ -1,10 +1,13 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class Tarea {
 	private int id;
 	private String titulo;
 	private String descripcion;
 	private Dificultad dificultad;
+	private ArrayList<Usuario> usuarios;
 	
 	public int getId() {
 		return id;
@@ -29,6 +32,12 @@ public class Tarea {
 	}
 	public void setDificultad(Dificultad dificultad) {
 		this.dificultad = dificultad;
+	}
+	public ArrayList<Usuario> getUsuarios() {
+		return usuarios;
+	}
+	public void setUsuarios(ArrayList<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 	@Override
 	public String toString() {
