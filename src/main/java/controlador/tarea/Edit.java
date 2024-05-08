@@ -1,6 +1,8 @@
 package controlador.tarea;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import modelo.ModeloDificultades;
 import modelo.ModeloTareas;
+import modelo.ModeloUsuarios;
 import modelo.Tarea;
+import modelo.Usuario;
 
 /**
  * Servlet implementation class Edit
@@ -32,8 +36,8 @@ public class Edit extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-ModeloDificultades md = new ModeloDificultades();
-		
+		ModeloDificultades md = new ModeloDificultades();
+
 		// recibir la id
 		int id = Integer.parseInt(request.getParameter("id"));
 
@@ -41,10 +45,15 @@ ModeloDificultades md = new ModeloDificultades();
 		ModeloTareas mt = new ModeloTareas();
 		Tarea tarea = mt.get(id);
 
+		ModeloUsuarios mu = new ModeloUsuarios();
+		ArrayList<Usuario> usuarios = mu.getTodos();
+		tarea.setUsuarios(mu.usuariosConLaTarea(id));
+		
+
 		// enviar tarea a la vista
 		request.setAttribute("tarea", tarea);
+		request.setAttribute("usuarios", usuarios);
 		request.setAttribute("dificultades", md.getTodos());
-
 
 		// abrir vista
 		request.getRequestDispatcher("tarea/edit_tarea.jsp").forward(request, response);

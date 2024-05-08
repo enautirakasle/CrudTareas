@@ -51,6 +51,19 @@
 							</c:forEach>
 						</select>
 					</p>
+
+					<p>Asignar  a: <br>
+                    	<c:forEach items="${usuarios}" var="usuario">
+                    		 <input type="checkbox" value="${usuario.id}" name="usuarios[]"
+                    		 <c:forEach items="${tarea.usuarios}" var="usuarioAsignado">
+                    		 		<c:if test="${usuario.id == usuarioAsignado.id}">
+                    		 			checked
+                    		 		</c:if>
+                    		 </c:forEach>
+                    		 
+                    		 /> ${usuario.nombre}<br>
+                    	</c:forEach>
+                    	</p>
 					<input type="submit" value="Guardar" name="Guardar">
 				</form>
 

@@ -27,6 +27,30 @@ public class ModeloUsuarios extends Conector {
         }
         return usuarios;
     }
+    
+    public ArrayList<Usuario> usuariosConLaTarea(int idTarea) {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+
+        try {
+            Statement st = conexion.createStatement();
+            PreparedStatement pst = conexion.prepareStatement("SELECT usuarios.* "
+            		+ "FROM `usuarios` INNER join asignaciones on usuarios.id = asignaciones.usuario_id "
+            		+ "WHERE asignaciones.tarea_id = ?");
+            pst.setInt(1, idTarea);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setId(rs.getInt("id"));
+                usuario.setNombre(rs.getString("nombre"));
+
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return usuarios;
+    }
 
     public Usuario get(int id) {
         try {
