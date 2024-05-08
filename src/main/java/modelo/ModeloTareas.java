@@ -1,5 +1,6 @@
 package modelo;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -86,17 +87,34 @@ public class ModeloTareas extends Conector {
 		}
 	}
 
-	public void insert(Tarea tarea) {
+	public int insert(Tarea tarea) {
 		try {
 			PreparedStatement pst = this.conexion
 					.prepareStatement("INSERT INTO tareas (titulo, descripcion, dificultad_id) VALUES (?, ?, ?)");
 			pst.setString(1, tarea.getTitulo());
 			pst.setString(2, tarea.getDescripcion());
 			pst.setInt(3, tarea.getDificultad().getId());
-			pst.execute();
+			pst.executeUpdate();
+			
+			return obtenerUltimoIdInsertado(this.conexion);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return -1;
 	}
+	
+	public int obtenerUltimoIdInsertado(Connection conexion) {
+	    try {
+	    	Statement st = this.conexion.createStatement();
+	        ResultSet rs = st.executeQuery("SELECT LAST_INSERT_ID() as last_id");
+	        if (rs.next()) {
+	            return rs.getInt("last_id");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return -1; // Si no se pudo obtener el ID, retorna un valor negativo
+	}
+
 
 }

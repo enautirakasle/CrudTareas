@@ -1,13 +1,16 @@
 package controlador.tarea;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.Asignacion;
 import modelo.Dificultad;
+import modelo.ModeloAsignaciones;
 import modelo.ModeloTareas;
 import modelo.Tarea;
 import utils.FormValidador;
@@ -42,6 +45,7 @@ public class Store extends HttpServlet {
 		String titulo = request.getParameter("titulo");
 		String descripcion = request.getParameter("descripcion");
 		int dificultad_id = Integer.parseInt(request.getParameter("dificultad"));
+		String[] idUsuarios = request.getParameterValues("usuarios[]");
 		
 		//almacenar la tarea en BBDD
 		Tarea tarea = new Tarea();
@@ -53,7 +57,14 @@ public class Store extends HttpServlet {
 		
 		if(FormValidador.tareaValida(tarea)){
 			ModeloTareas mt = new ModeloTareas();
-			mt.insert(tarea);
+			int idTarea = mt.insert(tarea);
+			
+			//insertar asignaciones
+			ModeloAsignaciones ma = new ModeloAsignaciones();
+			for (String idUsuario : idUsuarios) {
+				Asignacion asignacion = new Asignacion(idTarea, Integer.parseInt(idUsuario));
+				ma.insert(asignacion);
+			}
 					
 			//abrir lo que quiera, en mi caso inicio
 			//como ya tengo un controlador que abra el inicio redirijo a ese controlador
