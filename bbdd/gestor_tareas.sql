@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2024 a las 19:53:44
+-- Tiempo de generación: 08-05-2024 a las 20:27:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -92,6 +92,14 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`) VALUES
+(3, 'fulano'),
+(4, 'mengano');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -138,6 +146,12 @@ ALTER TABLE `tareas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -145,19 +159,14 @@ ALTER TABLE `tareas`
 -- Filtros para la tabla `asignaciones`
 --
 ALTER TABLE `asignaciones`
-  ADD CONSTRAINT `asignaciones_ibfk_1` FOREIGN KEY (`tarea_id`) REFERENCES `tareas` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `asignaciones_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `asignaciones_ibfk_2` FOREIGN KEY (`tarea_id`) REFERENCES `tareas` (`id`);
 
 --
 -- Filtros para la tabla `tareas`
 --
 ALTER TABLE `tareas`
   ADD CONSTRAINT `tareas_ibfk_1` FOREIGN KEY (`dificultad_id`) REFERENCES `dificultades` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id`) REFERENCES `asignaciones` (`usuario_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
