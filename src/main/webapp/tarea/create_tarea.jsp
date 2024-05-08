@@ -39,6 +39,11 @@
                     			</c:forEach>
                     		</select>
                     	</p>
+                    	<p>Asignar  a: <br>
+                    	<c:forEach items="${usuarios}" var="usuario">
+                    		 <input type="checkbox" value="${usuario.id}" name="usuarios[]"/> ${usuario.nombre}<br>
+                    	</c:forEach>
+                    	</p>
 						<input type="submit" value="Guardar" name="Guardar">
 					</form>
                 </div>

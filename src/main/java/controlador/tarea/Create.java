@@ -1,6 +1,7 @@
 package controlador.tarea;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import modelo.ModeloDificultades;
+import modelo.ModeloUsuarios;
 
 /**
  * Servlet implementation class Create
@@ -29,10 +31,13 @@ public class Create extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModeloDificultades md = new ModeloDificultades();
+		ModeloUsuarios mu = new ModeloUsuarios();
 
 		request.setAttribute("msg", request.getParameter("msg"));
 		
 		request.setAttribute("dificultades", md.getTodos());
+		request.setAttribute("usuarios", mu.getTodos());
+		
 		request.getRequestDispatcher("tarea/create_tarea.jsp").forward(request, response);
 	}
 
