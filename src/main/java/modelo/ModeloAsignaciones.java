@@ -61,6 +61,20 @@ public class ModeloAsignaciones extends Conector {
             return false;
         }
     }
+    
+    public boolean delete(int tareaId) {
+        try {
+            PreparedStatement pst = this.conexion.prepareStatement("DELETE FROM asignaciones WHERE tarea_id=?");
+            pst.setInt(1, tareaId);
+            pst.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    
 
     public void insert(Asignacion asignacion) {
         try {
