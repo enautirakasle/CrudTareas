@@ -1,14 +1,15 @@
 package modelo;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ModeloDificultades extends Conector {
+public class ModeloDificultades{
 
-    public ArrayList<Dificultad> getTodos() {
+    public ArrayList<Dificultad> getTodos(Connection conexion) {
         ArrayList<Dificultad> dificultades = new ArrayList<>();
 
         try {
@@ -28,9 +29,9 @@ public class ModeloDificultades extends Conector {
         return dificultades;
     }
 
-    public Dificultad get(int id) {
+    public Dificultad get(int id, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("SELECT * FROM dificultades WHERE id=?");
+            PreparedStatement pst = conexion.prepareStatement("SELECT * FROM dificultades WHERE id=?");
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
 
@@ -48,9 +49,9 @@ public class ModeloDificultades extends Conector {
         return null;
     }
 
-    public boolean delete(int id) {
+    public boolean delete(int id, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("DELETE FROM dificultades WHERE id=?");
+            PreparedStatement pst = conexion.prepareStatement("DELETE FROM dificultades WHERE id=?");
             pst.setInt(1, id);
             pst.execute();
             return true;
@@ -60,9 +61,9 @@ public class ModeloDificultades extends Conector {
         }
     }
 
-    public int update(Dificultad dificultad) {
+    public int update(Dificultad dificultad, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("UPDATE dificultades SET nombre = ? WHERE id = ?");
+            PreparedStatement pst = conexion.prepareStatement("UPDATE dificultades SET nombre = ? WHERE id = ?");
             pst.setString(1, dificultad.getNombre());
             pst.setInt(2, dificultad.getId());
 
@@ -73,9 +74,9 @@ public class ModeloDificultades extends Conector {
         }
     }
 
-    public void insert(Dificultad dificultad) {
+    public void insert(Dificultad dificultad, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("INSERT INTO dificultades (nombre) VALUES (?)");
+            PreparedStatement pst = conexion.prepareStatement("INSERT INTO dificultades (nombre) VALUES (?)");
             pst.setString(1, dificultad.getNombre());
             pst.execute();
         } catch (SQLException e) {

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.Conector;
 import modelo.ModeloDificultades;
 import modelo.ModeloUsuarios;
 
@@ -35,8 +36,8 @@ public class Create extends HttpServlet {
 
 		request.setAttribute("msg", request.getParameter("msg"));
 		
-		request.setAttribute("dificultades", md.getTodos());
-		request.setAttribute("usuarios", mu.getTodos());
+		request.setAttribute("dificultades", md.getTodos(Conector.getInstancia().getConexion()));
+		request.setAttribute("usuarios", mu.getTodos(Conector.getInstancia().getConexion()));
 		
 		request.getRequestDispatcher("tarea/create_tarea.jsp").forward(request, response);
 	}

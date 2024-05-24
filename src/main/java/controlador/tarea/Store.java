@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import modelo.Asignacion;
+import modelo.Conector;
 import modelo.Dificultad;
 import modelo.ModeloAsignaciones;
 import modelo.ModeloTareas;
@@ -57,13 +58,13 @@ public class Store extends HttpServlet {
 		
 		if(FormValidador.tareaValida(tarea)){
 			ModeloTareas mt = new ModeloTareas();
-			int idTarea = mt.insert(tarea);
+			int idTarea = mt.insert(tarea, Conector.getInstancia().getConexion());
 			
 			//insertar asignaciones
 			ModeloAsignaciones ma = new ModeloAsignaciones();
 			for (String idUsuario : idUsuarios) {
 				Asignacion asignacion = new Asignacion(idTarea, Integer.parseInt(idUsuario));
-				ma.insert(asignacion);
+				ma.insert(asignacion, Conector.getInstancia().getConexion());
 			}
 					
 			//abrir lo que quiera, en mi caso inicio

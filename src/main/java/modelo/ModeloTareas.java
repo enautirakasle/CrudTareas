@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ModeloTareas extends Conector {
+public class ModeloTareas{
 
-	public ArrayList<Tarea> getTodos() {
+	public ArrayList<Tarea> getTodos(Connection conexion) {
 		ModeloDificultades md = new ModeloDificultades();
 		ArrayList<Tarea> tareas = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public class ModeloTareas extends Conector {
 				tarea.setId(rs.getInt("id"));
 				tarea.setTitulo(rs.getString("titulo"));
 				tarea.setDescripcion(rs.getString("descripcion"));
-				tarea.setDificultad(md.get(rs.getInt("dificultad_id")));
+				tarea.setDificultad(md.get(rs.getInt("dificultad_id"), conexion));
 
 				tareas.add(tarea);
 			}
@@ -33,11 +33,11 @@ public class ModeloTareas extends Conector {
 		return tareas;
 	}
 
-	public Tarea get(int id) {
+	public Tarea get(int id, Connection conexion) {
 		ModeloDificultades md = new ModeloDificultades();
 
 		try {
-			PreparedStatement pst = this.conexion.prepareStatement("SELECT * FROM tareas WHERE id=?");
+			PreparedStatement pst = conexion.prepareStatement("SELECT * FROM tareas WHERE id=?");
 			pst.setInt(1, id);
 			ResultSet rs = pst.executeQuery();
 
@@ -46,7 +46,7 @@ public class ModeloTareas extends Conector {
 				tarea.setId(rs.getInt("id"));
 				tarea.setTitulo(rs.getString("titulo"));
 				tarea.setDescripcion(rs.getString("descripcion"));
-				tarea.setDificultad(md.get(rs.getInt("dificultad_id")));
+				tarea.setDificultad(md.get(rs.getInt("dificultad_id"), conexion));
 
 				// Si necesitas más campos aquí, agrégalos como lo hiciste en Alimento
 
@@ -59,9 +59,9 @@ public class ModeloTareas extends Conector {
 		return null;
 	}
 
-	public boolean delete(int id) {
+	public boolean delete(int id, Connection conexion) {
 		try {
-			PreparedStatement pst = this.conexion.prepareStatement("DELETE FROM tareas WHERE id=?");
+			PreparedStatement pst = conexion.prepareStatement("DELETE FROM tareas WHERE id=?");
 			pst.setInt(1, id);
 			pst.execute();
 			return true;
@@ -71,9 +71,9 @@ public class ModeloTareas extends Conector {
 		}
 	}
 
-	public int update(Tarea tarea) {
+	public int update(Tarea tarea, Connection conexion) {
 		try {
-			PreparedStatement pst = this.conexion
+			PreparedStatement pst = conexion
 					.prepareStatement("UPDATE tareas SET titulo = ?, descripcion = ?, dificultad_id = ? WHERE id = ?");
 			pst.setString(1, tarea.getTitulo());
 			pst.setString(2, tarea.getDescripcion());
@@ -87,16 +87,16 @@ public class ModeloTareas extends Conector {
 		}
 	}
 
-	public int insert(Tarea tarea) {
+	public int insert(Tarea tarea, Connection conexion) {
 		try {
-			PreparedStatement pst = this.conexion
+			PreparedStatement pst = conexion
 					.prepareStatement("INSERT INTO tareas (titulo, descripcion, dificultad_id) VALUES (?, ?, ?)");
 			pst.setString(1, tarea.getTitulo());
 			pst.setString(2, tarea.getDescripcion());
 			pst.setInt(3, tarea.getDificultad().getId());
 			pst.executeUpdate();
 			
-			return obtenerUltimoIdInsertado(this.conexion);
+			return obtenerUltimoIdInsertado(conexion);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -105,7 +105,7 @@ public class ModeloTareas extends Conector {
 	
 	public int obtenerUltimoIdInsertado(Connection conexion) {
 	    try {
-	    	Statement st = this.conexion.createStatement();
+	    	Statement st = conexion.createStatement();
 	        ResultSet rs = st.executeQuery("SELECT LAST_INSERT_ID() as last_id");
 	        if (rs.next()) {
 	            return rs.getInt("last_id");

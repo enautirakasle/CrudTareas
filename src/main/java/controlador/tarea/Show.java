@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.Conector;
 import modelo.ModeloTareas;
 import modelo.Tarea;
 
@@ -35,7 +36,7 @@ public class Show extends HttpServlet {
 		
 		//conseguir la tarea
 		ModeloTareas mt = new ModeloTareas();
-		Tarea tarea = mt.get(id);
+		Tarea tarea = mt.get(id, Conector.getInstancia().getConexion());
 		
 		//enviar tarea a la vista
 		request.setAttribute("tarea", tarea);

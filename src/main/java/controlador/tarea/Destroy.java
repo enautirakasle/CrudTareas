@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.Conector;
 import modelo.ModeloTareas;
 import modelo.Tarea;
 
@@ -34,7 +35,7 @@ public class Destroy extends HttpServlet {
 		
 		//eliminar la tarea
 		ModeloTareas mt = new ModeloTareas();
-		mt.delete(id);
+		mt.delete(id, Conector.getInstancia().getConexion());
 		
 		//abrir lo que quiera, en mi caso inicio
 		//como ya tengo un controlador que abra el inicio redirijo a ese controlador

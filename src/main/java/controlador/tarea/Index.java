@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.Conector;
 import modelo.ModeloTareas;
 import modelo.Tarea;
 
@@ -35,7 +36,7 @@ public class Index extends HttpServlet {
 
 		//acceder a la BBDD y traerme todos los usuarios
 		ModeloTareas mt = new ModeloTareas();
-		ArrayList<Tarea> tareas = mt.getTodos();
+		ArrayList<Tarea> tareas = mt.getTodos(Conector.getInstancia().getConexion());
 		
 		
 		//set atribute de eese arraylist

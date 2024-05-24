@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.Conector;
 import modelo.Dificultad;
 import modelo.ModeloDificultades;
 
@@ -33,7 +34,7 @@ public class IndexDificultad extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 // Acceder a la BBDD y traerme todas las dificultades
 	    ModeloDificultades md = new ModeloDificultades();
-	    ArrayList<Dificultad> dificultades = md.getTodos();
+	    ArrayList<Dificultad> dificultades = md.getTodos(Conector.getInstancia().getConexion());
 	    
 	    // Set attribute de ese ArrayList
 	    request.setAttribute("dificultades", dificultades);

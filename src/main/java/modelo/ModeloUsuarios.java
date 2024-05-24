@@ -1,14 +1,15 @@
 package modelo;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ModeloUsuarios extends Conector {
+public class ModeloUsuarios {
 
-    public ArrayList<Usuario> getTodos() {
+    public ArrayList<Usuario> getTodos(Connection conexion) {
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
         try {
@@ -28,11 +29,10 @@ public class ModeloUsuarios extends Conector {
         return usuarios;
     }
     
-    public ArrayList<Usuario> usuariosConLaTarea(int idTarea) {
+    public ArrayList<Usuario> usuariosConLaTarea(int idTarea, Connection conexion) {
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
         try {
-            Statement st = conexion.createStatement();
             PreparedStatement pst = conexion.prepareStatement("SELECT usuarios.* "
             		+ "FROM `usuarios` INNER join asignaciones on usuarios.id = asignaciones.usuario_id "
             		+ "WHERE asignaciones.tarea_id = ?");
@@ -52,9 +52,9 @@ public class ModeloUsuarios extends Conector {
         return usuarios;
     }
 
-    public Usuario get(int id) {
+    public Usuario get(int id, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("SELECT * FROM usuarios WHERE id=?");
+            PreparedStatement pst = conexion.prepareStatement("SELECT * FROM usuarios WHERE id=?");
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
 
@@ -72,9 +72,9 @@ public class ModeloUsuarios extends Conector {
         return null;
     }
 
-    public boolean delete(int id) {
+    public boolean delete(int id, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("DELETE FROM usuarios WHERE id=?");
+            PreparedStatement pst = conexion.prepareStatement("DELETE FROM usuarios WHERE id=?");
             pst.setInt(1, id);
             pst.execute();
             return true;
@@ -84,9 +84,9 @@ public class ModeloUsuarios extends Conector {
         }
     }
 
-    public int update(Usuario usuario) {
+    public int update(Usuario usuario, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("UPDATE usuarios SET nombre = ? WHERE id = ?");
+            PreparedStatement pst = conexion.prepareStatement("UPDATE usuarios SET nombre = ? WHERE id = ?");
             pst.setString(1, usuario.getNombre());
             pst.setInt(2, usuario.getId());
 
@@ -97,9 +97,9 @@ public class ModeloUsuarios extends Conector {
         }
     }
 
-    public void insert(Usuario usuario) {
+    public void insert(Usuario usuario, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("INSERT INTO usuarios (nombre) VALUES (?)");
+            PreparedStatement pst = conexion.prepareStatement("INSERT INTO usuarios (nombre) VALUES (?)");
             pst.setString(1, usuario.getNombre());
             pst.execute();
         } catch (SQLException e) {

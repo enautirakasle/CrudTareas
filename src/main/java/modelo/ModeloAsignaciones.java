@@ -1,14 +1,15 @@
 package modelo;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ModeloAsignaciones extends Conector {
+public class ModeloAsignaciones{
 
-    public ArrayList<Asignacion> getTodos() {
+    public ArrayList<Asignacion> getTodos(Connection conexion) {
         ArrayList<Asignacion> asignaciones = new ArrayList<>();
 
         try {
@@ -28,9 +29,9 @@ public class ModeloAsignaciones extends Conector {
         return asignaciones;
     }
 
-    public Asignacion get(int tareaId, int usuarioId) {
+    public Asignacion get(int tareaId, int usuarioId, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("SELECT * FROM asignaciones WHERE tarea_id=? AND usuario_id=?");
+            PreparedStatement pst = conexion.prepareStatement("SELECT * FROM asignaciones WHERE tarea_id=? AND usuario_id=?");
             pst.setInt(1, tareaId);
             pst.setInt(2, usuarioId);
             ResultSet rs = pst.executeQuery();
@@ -49,9 +50,9 @@ public class ModeloAsignaciones extends Conector {
         return null;
     }
 
-    public boolean delete(int tareaId, int usuarioId) {
+    public boolean delete(int tareaId, int usuarioId, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("DELETE FROM asignaciones WHERE tarea_id=? AND usuario_id=?");
+            PreparedStatement pst = conexion.prepareStatement("DELETE FROM asignaciones WHERE tarea_id=? AND usuario_id=?");
             pst.setInt(1, tareaId);
             pst.setInt(2, usuarioId);
             pst.execute();
@@ -62,9 +63,9 @@ public class ModeloAsignaciones extends Conector {
         }
     }
     
-    public boolean delete(int tareaId) {
+    public boolean delete(int tareaId, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("DELETE FROM asignaciones WHERE tarea_id=?");
+            PreparedStatement pst = conexion.prepareStatement("DELETE FROM asignaciones WHERE tarea_id=?");
             pst.setInt(1, tareaId);
             pst.execute();
             return true;
@@ -76,9 +77,9 @@ public class ModeloAsignaciones extends Conector {
     
     
 
-    public void insert(Asignacion asignacion) {
+    public void insert(Asignacion asignacion, Connection conexion) {
         try {
-            PreparedStatement pst = this.conexion.prepareStatement("INSERT INTO asignaciones (tarea_id, usuario_id) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pst = conexion.prepareStatement("INSERT INTO asignaciones (tarea_id, usuario_id) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, asignacion.getTareaId());
             pst.setInt(2, asignacion.getUsuarioId());
             pst.executeUpdate();

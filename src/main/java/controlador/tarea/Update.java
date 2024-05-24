@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import modelo.Asignacion;
+import modelo.Conector;
 import modelo.Dificultad;
 import modelo.ModeloAsignaciones;
 import modelo.ModeloTareas;
@@ -60,15 +61,15 @@ public class Update extends HttpServlet {
 		
 		if(FormValidador.tareaValida(tarea)) {
 			ModeloTareas mt = new ModeloTareas();
-			mt.update(tarea);
+			mt.update(tarea, Conector.getInstancia().getConexion());
 			
 			ModeloAsignaciones ma = new ModeloAsignaciones();
-			ma.delete(id);
+			ma.delete(id, Conector.getInstancia().getConexion());
 			
 			if(idUsuarios != null ) {
 				for (String idUsuario : idUsuarios) {
 					Asignacion asignacion = new Asignacion(id, Integer.parseInt(idUsuario));
-					ma.insert(asignacion);	
+					ma.insert(asignacion, Conector.getInstancia().getConexion());	
 				}
 			}
 			

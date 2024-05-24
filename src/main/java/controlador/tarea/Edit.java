@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.Conector;
 import modelo.ModeloDificultades;
 import modelo.ModeloTareas;
 import modelo.ModeloUsuarios;
@@ -43,17 +44,17 @@ public class Edit extends HttpServlet {
 
 		// conseguir la tarea
 		ModeloTareas mt = new ModeloTareas();
-		Tarea tarea = mt.get(id);
+		Tarea tarea = mt.get(id, Conector.getInstancia().getConexion());
 
 		ModeloUsuarios mu = new ModeloUsuarios();
-		ArrayList<Usuario> usuarios = mu.getTodos();
-		tarea.setUsuarios(mu.usuariosConLaTarea(id));
+		ArrayList<Usuario> usuarios = mu.getTodos(Conector.getInstancia().getConexion());
+		tarea.setUsuarios(mu.usuariosConLaTarea(id, Conector.getInstancia().getConexion()));
 		
 
 		// enviar tarea a la vista
 		request.setAttribute("tarea", tarea);
 		request.setAttribute("usuarios", usuarios);
-		request.setAttribute("dificultades", md.getTodos());
+		request.setAttribute("dificultades", md.getTodos(Conector.getInstancia().getConexion()));
 
 		// abrir vista
 		request.getRequestDispatcher("tarea/edit_tarea.jsp").forward(request, response);
